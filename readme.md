@@ -1,14 +1,17 @@
-<div align="center">
+# The First Few Tokens Are All You Need: An Efficient and Effective Unsupervised Prefix Fine-Tuning Method for Reasoning Models
 
-[//]: # (  <h1>The First Few Tokens Are All You Need: An Efficient and Effective <span style="color:green;"><em>Unsupervised</em></span> <span style="color:blue;"><em>Prefix</em></span> Fine-Tuning Method for Reasoning Models</h1>)
-<h1>
-The First Few Tokens Are All You Need: An Efficient and Effective Unsupervised Prefix Fine-Tuning Method for Reasoning Models
-</h1>
-    <p>
-    </p>
-</div>
+Are expensive labeled data and rejection sampling truly necessary for developing self-improving reasoning models?
 
-This repository provides official resources for the paper ["The First Few Tokens Are All You Need: An Efficient and Effective Unsupervised Prefix Fine-Tuning Method for Reasoning Models"](https://arxiv.org/abs/2503.02875).
+We introduce Unsupervised Prefix Fine-Tuning (UPFT) -- an efficient method that trains models on only the first few tokens of single self-generated solutions, exploiting Prefix Self-Consistency across different reasoning trajectories.
+This repo contains the source code of UPFT.
+
+**The First Few Tokens Are All You Need: An Efficient and Effective Unsupervised Prefix Fine-Tuning Method for Reasoning Models** <br>
+*Ke Ji, Jiahao Xu, Tian Liang, Qiuzhi Liu, Zhiwei He, Xingyu Chen, Xiaoyuan Liu, Zhijie Wang, Junying Chen, Benyou Wang, Zhaopeng Tu, Haitao Mi, Dong Yu* <br>
+Paper: https://arxiv.org/abs/2503.02875 <br>
+
+
+
+
 
 <p align="center">
 <img src="./figs/method.png" width=80%>
@@ -30,7 +33,7 @@ We utilize open-source framework OpenRLHF to conduct our training process.
 
 Step 1: Use vllm for sampling
 
-Step 2: Run command below to train from a 7B model on 8 A100 GPUs. 
+Step 2: Run command below to train from a 7B model. 
 
 ```bash
 bash scripts/train_sft.sh
