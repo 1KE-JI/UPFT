@@ -11,7 +11,7 @@ Paper: https://arxiv.org/abs/2503.02875 <br>
 
 
 <p align="center">
-<img src="./figs/method.png" width=80%>
+<img src="figs/introduction.png" width=80%>
 </p>
 
 ## Getting Started
