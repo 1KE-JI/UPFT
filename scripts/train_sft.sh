@@ -129,12 +129,7 @@ for negative_mode in "${negative_mode_list[@]}"; do
     if [ -d "${OUTPUT_DIR}/${SUFFIX}" ]; then
         cp ${OUTPUT_DIR}/${SUFFIX}/training.log ${OUTPUT_DIR}/${SUFFIX}/training.log.bak
     fi
-    if [ -e "${OUTPUT_DIR}/${SUFFIX}/model-00001-of-00004.safetensors" ]; then
-        LOAD_CHECKPOINT=0
-        if [ "$save_only" = "1" ]; then
-            LOAD_CHECKPOINT=1
-        fi
-    fi
+
 
     if [[ -d "${OUTPUT_DIR}/${SUFFIX}" && "$LOAD_CHECKPOINT" = "0" ]]; then
         echo "path exist: ${OUTPUT_DIR}/${SUFFIX}"
@@ -144,49 +139,45 @@ for negative_mode in "${negative_mode_list[@]}"; do
 
         echo "train on 1 node with 8 GPUs"
 
-        for i in {0..10}; do
-            deepspeed --module train.train_sft \
-                --max_len ${MAX_SEQ_LENGTH} \
-                --dataset ${DATASET_NAME} \
-                --input_key question \
-                --output_key response \
-                --debug ${DEBUG} \
-                --train_batch_size 64 \
-                --micro_train_batch_size ${micro_train_batch_size} \
-                --lr_scheduler ${lr_s} \
-                --max_samples 500000 \
-                --pretrain ${MODEL_PATH} \
-                --save_path ${OUTPUT_DIR}/${SUFFIX} \
-                --save_steps ${SAVE_STEPS} \
-                --logging_steps 1 \
-                --adam_offload \
-                --eval_steps -1 \
-                --zero_stage ${zero_stage} \
-                --bf16 \
-                --flash_attn \
-                --max_epochs ${max_epochs} \
-                --learning_rate ${lr} \
-                --load_checkpoint \
-                --gradient_checkpointing \
-                --chat_template_name ${CHAT_TEMPLATE_NAME} \
-                --apply_chat_template \
-                --tasks $TASK \
-                --data_ratio ${data_ratio} \
-                --data_path ${DATA_PATH} \
-                --add_prompt "${ADD_SFT_PROMPT}" \
-                --add_planning_prompt "${ADD_PLANNING_PROMPT}" \
-                --planning_pruning_ratio "${planning_pruning_ratio}" \
-                --negative_mode ${negative_mode} \
-                --dataset_name ${DATASET_NAME} \
-                --save_only ${save_only} \
-                --planning_pruning ${planning_pruning} \
-                --planning_pruning_token ${planning_pruning_token} \
-                --planning_pruning_mode ${planning_pruning_mode} \
-                --planning_prefix_tuning_length ${planning_prefix_tuning_length} 2>&1 | tee ${OUTPUT_DIR}/${SUFFIX}/training.log
-            if [ -e "${OUTPUT_DIR}/${SUFFIX}/model-00001-of-00004.safetensors" ]; then
-                echo "train success, exit"
-                break
-            fi
+        deepspeed --module train.train_sft \
+            --max_len ${MAX_SEQ_LENGTH} \
+            --dataset ${DATASET_NAME} \
+            --input_key question \
+            --output_key response \
+            --debug ${DEBUG} \
+            --train_batch_size 64 \
+            --micro_train_batch_size ${micro_train_batch_size} \
+            --lr_scheduler ${lr_s} \
+            --max_samples 500000 \
+            --pretrain ${MODEL_PATH} \
+            --save_path ${OUTPUT_DIR}/${SUFFIX} \
+            --save_steps ${SAVE_STEPS} \
+            --logging_steps 1 \
+            --adam_offload \
+            --eval_steps -1 \
+            --zero_stage ${zero_stage} \
+            --bf16 \
+            --flash_attn \
+            --max_epochs ${max_epochs} \
+            --learning_rate ${lr} \
+            --load_checkpoint \
+            --gradient_checkpointing \
+            --chat_template_name ${CHAT_TEMPLATE_NAME} \
+            --apply_chat_template \
+            --tasks $TASK \
+            --data_ratio ${data_ratio} \
+            --data_path ${DATA_PATH} \
+            --add_prompt "${ADD_SFT_PROMPT}" \
+            --add_planning_prompt "${ADD_PLANNING_PROMPT}" \
+            --planning_pruning_ratio "${planning_pruning_ratio}" \
+            --negative_mode ${negative_mode} \
+            --dataset_name ${DATASET_NAME} \
+            --save_only ${save_only} \
+            --planning_pruning ${planning_pruning} \
+            --planning_pruning_token ${planning_pruning_token} \
+            --planning_pruning_mode ${planning_pruning_mode} \
+            --planning_prefix_tuning_length ${planning_prefix_tuning_length} 2>&1 | tee ${OUTPUT_DIR}/${SUFFIX}/training.log
+
         done
     fi
 
