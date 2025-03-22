@@ -17,8 +17,8 @@ This repository provides official resources for the paper ["The First Few Tokens
 ## Getting Started
 
 ```bash
-git clone https://github.com/ReasonFlux
-cd ReasonFlux
+git clone https://github.com/1KE-JI/UPFT.git
+cd UPFT
 conda create -n torch240 python==3.10.13
 conda activate torch240
 pip install -r requirements.txt
