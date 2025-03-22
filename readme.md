@@ -10,9 +10,6 @@ This repo contains the source code of UPFT.
 Paper: https://arxiv.org/abs/2503.02875 <br>
 
 
-
-
-
 <p align="center">
 <img src="./figs/method.png" width=80%>
 </p>
