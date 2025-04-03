@@ -237,7 +237,6 @@ def run_rollout(args):
     write_jsonl(tgt_path, generations)
 
 
-
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Args of sft')
 
@@ -277,7 +276,6 @@ if __name__ == '__main__':
 
     # Other Args
     parser.add_argument('--seed', default=42, type=int)
-    global args
     args = parser.parse_args()
 
     set_seed(args.seed)
@@ -290,7 +288,5 @@ if __name__ == '__main__':
             print("processing prefix_length:", prefix_length)
             args.prefix_length = prefix_length
             run_rollout(args)
-    elif task == "eval":
-        eval(args)
     else:
         raise NotImplementedError
