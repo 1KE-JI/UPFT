@@ -74,6 +74,9 @@ We utilize open-source framework OpenRLHF to conduct our training process.
 
 Step 1: Use vllm for sampling
 
+```bash
+python inference/vllm_inference.py
+```
 Step 2: Run command below to train from a 7B model. 
 
 ```bash
