@@ -19,7 +19,7 @@ import random
 from typing import List, Dict, Tuple, Union, Optional, Any, Callable
 from chat_template import CHAT_TEMPLATE
 from utils.utils import *
-from rollout_utils import *
+from utils.rollout_utils import *
 
 logger = logging.get_logger(__name__)
 logger.setLevel(logging.DEBUG)
