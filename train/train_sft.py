@@ -112,11 +112,6 @@ def train(args):
     optim = strategy.create_optimizer(model, lr=args.learning_rate, betas=args.adam_betas, weight_decay=args.l2)
 
     tasks = args.tasks.split("_")
-    prompt_template_names = ["dqa", "qa"]
-    prompt_templates = dict()
-    for prompt_template_name in prompt_template_names:
-        with open(os.path.join("prompts", prompt_template_name + '.txt'), 'r') as f:
-            prompt_templates[prompt_template_name] = f.read()
     # prepare for data and dataset
     load_from_hf = False
     if not args.planning_pruning:
